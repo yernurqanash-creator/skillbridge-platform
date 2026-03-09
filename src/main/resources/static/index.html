@@ -1,0 +1,263 @@
+﻿<!doctype html>
+<html lang="kk" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SkillBridge</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="announce" data-i18n="announce">Your AI internship platform is live. Build CV -> Match -> Get hired.</div>
+
+  <header class="topnav-wrap">
+    <div class="topnav">
+      <div class="brand-inline">
+        <img src="logo.png" alt="SkillBridge AI" class="nav-logo" onerror="if(this.src.indexOf('logo.jpg')===-1){this.src='logo.jpg'}else{this.src='brand-mark.svg'}" />
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-item active" data-page="dashboard" data-i18n="nav_dashboard">Dashboard</button>
+        <button class="nav-item" data-page="resumeBuilder" data-i18n="nav_resume">Resume Builder</button>
+        <button class="nav-item" data-page="uploadCv" data-i18n="nav_upload">Upload CV</button>
+        <button class="nav-item" data-page="recommend" data-i18n="nav_match">Internship Match</button>
+        <button class="nav-item" data-page="career" data-i18n="nav_career">Roadmap</button>
+        <button class="nav-item" data-page="news" data-i18n="nav_news">News</button>
+        <button class="nav-item" data-page="resources" data-i18n="nav_resources">Extra section</button>
+        <button class="nav-item" data-page="about" data-i18n="nav_about">About us</button>
+        <button class="nav-item" data-page="settings" data-i18n="nav_settings">Settings</button>
+      </nav>
+
+      <div class="nav-actions">
+        <select id="langSelect" class="select compact">
+          <option value="kk">Қазақша</option>
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+        </select>
+        <button id="themeToggle" class="chip" type="button">🌙</button>
+        <button class="btn ghost" id="btnLogout" data-i18n="logout">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-shell">
+    <div class="topbar-mini">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrow">AI INTERNSHIP PLATFORM</p>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="status" id="statusPill">● Ready</div>
+        <div class="user-pill">
+          <div class="avatar" id="avatar">U</div>
+          <div>
+            <div class="user-name" id="userName">User</div>
+            <div class="user-mail" id="userMail">-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="pages">
+      <div class="page show" id="page-dashboard">
+        <section class="hero">
+          <div class="hero-orb"></div>
+          <div class="hero-left">
+            <p class="hero-tag" data-i18n="hero_tag">AI-native internship career OS</p>
+            <h2 data-i18n="hero">Жеке кабинет</h2>
+            <p class="hero-sub" data-i18n="hero_desc">Тіркелу, CV жүктеу, стажировка пайызы және roadmap.</p>
+            <div class="hero-chips">
+              <span class="hero-chip" data-i18n="hero_chip_1">Build standout CV</span>
+              <span class="hero-chip" data-i18n="hero_chip_2">Get AI match score</span>
+              <span class="hero-chip" data-i18n="hero_chip_3">Land top internship</span>
+            </div>
+            <div class="row mt">
+              <button class="btn" data-go="uploadCv" data-i18n="cta_upload_resume">Upload Resume</button>
+              <button class="btn ghost" data-go="recommend" data-i18n="cta_run_match">Run AI Match</button>
+              <button class="btn ghost" data-go="career" data-i18n="cta_build_roadmap">Build Roadmap</button>
+              <a class="btn ghost telegram-bot-btn" href="https://t.me/skillbridgeebot" target="_blank" data-i18n="cta_bot">Telegram Bot @skillbridgeebot</a>
+            </div>
+          </div>
+          <div class="hero-right">
+            <article class="kpi-box"><span data-i18n="kpi_user_id">User ID</span><strong id="dashUserId">-</strong></article>
+            <article class="kpi-box"><span data-i18n="kpi_cv_id">CV ID</span><strong id="dashCvId">-</strong></article>
+            <article class="kpi-box"><span data-i18n="kpi_best_match">Best Match</span><strong id="dashBest">-%</strong></article>
+          </div>
+        </section>
+
+        <section class="pipeline mt-lg">
+          <div class="pipe-line"></div>
+          <div class="pipe-step" data-i18n="pipe_1">Create Resume</div>
+          <div class="pipe-step" data-i18n="pipe_2">Extract Skills</div>
+          <div class="pipe-step" data-i18n="pipe_3">Generate Match</div>
+          <div class="pipe-step" data-i18n="pipe_4">Get Internship</div>
+        </section>
+
+        <section class="feature-grid mt-lg">
+          <article class="feature-card">
+            <h3 data-i18n="f1_title">Resume Upload Panel</h3>
+            <p data-i18n="f1_desc">Upload CV and parse technical skills with AI.</p>
+            <button class="btn mt" data-go="uploadCv" data-i18n="f1_btn">Go to Upload</button>
+          </article>
+          <article class="feature-card">
+            <h3 data-i18n="f2_title">AI Skill Analysis</h3>
+            <p data-i18n="f2_desc">See readiness signal and extracted skill cloud.</p>
+            <button class="btn ghost mt" data-go="uploadCv" data-i18n="f2_btn">Open Analysis</button>
+          </article>
+          <article class="feature-card">
+            <h3 data-i18n="f3_title">Internship Match</h3>
+            <p data-i18n="f3_desc">Role-fit percentage and gap insights.</p>
+            <button class="btn ghost mt" data-go="recommend" data-i18n="f3_btn">View Match</button>
+          </article>
+          <article class="feature-card">
+            <h3 data-i18n="career_title">Career Roadmap</h3>
+            <p data-i18n="f4_desc">3-month plan for backend/frontend/data tracks.</p>
+            <button class="btn ghost mt" data-go="career" data-i18n="f4_btn">Build Plan</button>
+          </article>
+        </section>
+
+        <section class="partner-block mt-lg">
+          <div class="section-head">
+            <h3 data-i18n="dream_title">Біздің Арман</h3>
+            <p data-i18n="dream_desc">Жетекші компаниялармен internship тректері.</p>
+          </div>
+          <div class="partner-marquee mt">
+            <div class="partner-track">
+              <a class="partner-chip" href="https://techcorp.kz" target="_blank">TechCorp</a>
+              <a class="partner-chip" href="https://kaspi.kz" target="_blank">Kaspi Lab</a>
+              <a class="partner-chip" href="https://onelab.kz" target="_blank">OneLab</a>
+              <a class="partner-chip" href="https://nfacademy.kz" target="_blank">nFactorial</a>
+              <a class="partner-chip" href="https://beeline.kz" target="_blank">Beeline Digital</a>
+              <a class="partner-chip" href="https://kolesa.group" target="_blank">Kolesa Group</a>
+              <a class="partner-chip" href="https://chocofamily.kz" target="_blank">Choco Family</a>
+              <a class="partner-chip" href="https://freedomholdingcorp.com" target="_blank">Freedom Lab</a>
+              <a class="partner-chip" href="https://airastana.com" target="_blank">Air Astana Tech</a>
+              <a class="partner-chip" href="https://astanahub.com" target="_blank">Astana Hub</a>
+              <a class="partner-chip" href="https://techcorp.kz" target="_blank">TechCorp</a>
+              <a class="partner-chip" href="https://kaspi.kz" target="_blank">Kaspi Lab</a>
+              <a class="partner-chip" href="https://onelab.kz" target="_blank">OneLab</a>
+              <a class="partner-chip" href="https://nfacademy.kz" target="_blank">nFactorial</a>
+              <a class="partner-chip" href="https://beeline.kz" target="_blank">Beeline Digital</a>
+              <a class="partner-chip" href="https://kolesa.group" target="_blank">Kolesa Group</a>
+              <a class="partner-chip" href="https://chocofamily.kz" target="_blank">Choco Family</a>
+              <a class="partner-chip" href="https://freedomholdingcorp.com" target="_blank">Freedom Lab</a>
+              <a class="partner-chip" href="https://airastana.com" target="_blank">Air Astana Tech</a>
+              <a class="partner-chip" href="https://astanahub.com" target="_blank">Astana Hub</a>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="page" id="page-resumeBuilder">
+        <section class="panel">
+          <h3 data-i18n="resume_title">Resume PDF Builder</h3>
+          <p class="muted" data-i18n="resume_desc">Modern, ATS-friendly resume export.</p>
+          <div class="grid2 mt">
+            <div class="field"><label data-i18n="form_name">Name</label><input id="rbName" /></div>
+            <div class="field"><label data-i18n="form_email">Email</label><input id="rbEmail" /></div>
+            <div class="field"><label data-i18n="form_university">University</label><input id="rbUniversity" /></div>
+            <div class="field"><label data-i18n="form_skills">Skills</label><input id="rbSkills" placeholder="java, spring, sql" /></div>
+            <div class="field"><label data-i18n="form_projects">Projects</label><input id="rbProjects" /></div>
+            <div class="field"><label data-i18n="form_languages">Languages</label><input id="rbLang" /></div>
+          </div>
+          <div class="row mt"><button class="btn" id="btnGeneratePdf" data-i18n="resume_btn_generate">Generate PDF</button><button class="btn ghost" id="btnFillDemo" data-i18n="resume_btn_demo">Fill demo</button></div>
+        </section>
+      </div>
+
+      <div class="page" id="page-uploadCv">
+        <div class="grid2">
+          <section class="panel">
+            <h3 data-i18n="upload_title">Resume Upload</h3>
+            <p class="muted" data-i18n="upload_desc">PDF parser + AI skills detection</p>
+            <div class="field mt"><label data-i18n="kpi_user_id">User ID</label><input id="upUserId" type="number" /></div>
+            <div class="field"><label data-i18n="upload_pdf_file">PDF File</label><input id="upFile" type="file" accept="application/pdf" /></div>
+            <button class="btn mt" id="btnUploadCv" data-i18n="upload_btn">Upload & Analyze</button>
+          </section>
+          <section class="panel">
+            <h3 data-i18n="analysis_output">Analysis Output</h3>
+            <div class="kv"><span data-i18n="kpi_cv_id">CV ID</span><strong id="upCvId">-</strong></div>
+            <div class="kv"><span data-i18n="readiness">Readiness</span><strong id="upScore">-%</strong></div>
+            <div class="skills-cloud mt" id="upSkillTags"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="page" id="page-recommend">
+        <section class="panel">
+          <h3 data-i18n="match_title">Internship Match Percentage</h3>
+          <p class="muted" data-i18n="match_desc">AI calculates role-fit probability against available internships.</p>
+          <div class="field mt"><label data-i18n="kpi_user_id">User ID</label><input id="rUserId" type="number" /></div>
+          <div class="row mt"><button class="btn" id="btnRecommend" data-i18n="match_btn">Run recommendations</button></div>
+          <div class="cards-grid mt" id="recList"></div>
+          <div class="contact-strip mt">
+            <div>
+              <strong data-i18n="contact_title">Need detailed guidance from our team?</strong>
+              <p class="muted" data-i18n="contact_desc">Tap Telegram and write directly to us.</p>
+            </div>
+            <a class="tg-link" href="https://t.me/yernurmyn" target="_blank" aria-label="Telegram @yernurmyn">
+              <span class="tg-icon">✈</span>
+              <span>@yernurmyn</span>
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <div class="page" id="page-career">
+        <div class="grid2">
+          <section class="panel">
+            <h3 data-i18n="career_title">Career Roadmap</h3>
+            <p class="muted" data-i18n="career_desc">Choose focus area and generate next 3 months plan.</p>
+            <div class="field mt"><label data-i18n="focus_track">Focus Track</label><select id="interest" class="select full"><option value="backend" data-i18n="track_backend">Backend</option><option value="frontend" data-i18n="track_frontend">Frontend</option><option value="data" data-i18n="track_data_ai">Data / AI</option><option value="devops" data-i18n="track_devops">DevOps</option><option value="mobile" data-i18n="track_mobile">Mobile</option><option value="qa" data-i18n="track_qa">QA Automation</option><option value="product" data-i18n="track_product">Product Management</option><option value="uiux" data-i18n="track_uiux">UI/UX Design</option><option value="cybersecurity" data-i18n="track_cyber">Cybersecurity</option><option value="cloud" data-i18n="track_cloud">Cloud Engineering</option></select></div>
+            <button class="btn mt" id="btnRoadmap" data-i18n="career_btn">Generate roadmap</button>
+          </section>
+          <section class="panel"><h3 data-i18n="roadmap_output">Roadmap Output</h3><div id="roadmapBox">-</div></section>
+        </div>
+      </div>
+
+      <div class="page" id="page-news"><section class="panel"><h3 data-i18n="news_title">News</h3><p class="muted" data-i18n="news_desc">Latest industry updates for internship landscape.</p><div class="news-grid mt" id="newsList"></div></section></div>
+      <div class="page" id="page-resources"><section class="panel"><h3 data-i18n="resources_title">Resources</h3><p class="muted" data-i18n="resources_desc">Curated content for interview prep and skill growth.</p><div class="news-grid mt" id="resourceList"></div></section></div>
+      <div class="page" id="page-about">
+        <section class="panel">
+          <h3 data-i18n="about_title">About SkillBridge AI</h3>
+          <p class="muted" data-i18n="about_desc">Academic-grade platform built to match students with real internship outcomes.</p>
+          <div class="authors-grid mt">
+            <article class="author-card">
+              <h4 data-i18n="author_1_name">Yernur Kanash</h4>
+              <p data-i18n="author_1_role">Founder, Product & AI Integration</p>
+              <h4 data-i18n="author_2_name">Kenesbek Didar</h4>
+              <p data-i18n="author_2_role">Founder, Product & AI Integration</p>
+            </article>
+            <article class="author-card">
+              <h4 data-i18n="author_3_name">SkillBridge Core Team</h4>
+              <p data-i18n="author_3_role">Students, future engineers & startup founders</p>
+            </article>
+          </div>
+        </section>
+      </div>
+      <div class="page" id="page-settings"><section class="panel"><h3 data-i18n="settings_title">Settings</h3><p class="muted" data-i18n="settings_desc">Theme and language are saved locally.</p></section></div>
+    </section>
+
+    <section class="about-strip mt-lg">
+      <h3 data-i18n="about_strip_title">Authors / About us</h3>
+      <p data-i18n="about_strip_desc">SkillBridge AI helps students move from CV to internship offer with measurable AI matching.</p>
+      <div class="row mt">
+        <a class="btn ghost telegram-bot-btn" href="https://t.me/skillbridgeebot" target="_blank" data-i18n="bot_link">Open Telegram Bot @skillbridgeebot</a>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+  </main>
+
+  <div class="auth-modal" id="authModal">
+    <div class="auth-card">
+      <img src="logo.png" alt="SkillBridge AI" class="auth-brand" onerror="if(this.src.indexOf('logo.jpg')===-1){this.src='logo.jpg'}else{this.src='brand-mark.svg'}" />
+      <p class="auth-kicker" data-i18n="auth_kicker">SkillBridge Access</p>
+      <h2 data-i18n="auth_welcome">Welcome back</h2>
+      <div class="seg"><button class="seg-btn active" id="tabLogin" data-i18n="auth_login_tab">Login</button><button class="seg-btn" id="tabRegister" data-i18n="auth_register_tab">Register</button></div>
+      <div id="loginForm" class="mt"><div class="field"><label data-i18n="form_email">Email</label><input id="loginEmail" /></div><div class="field"><label data-i18n="form_password">Password</label><input id="loginPassword" type="password" /></div><button class="btn mt" id="btnLogin" data-i18n="auth_login_btn">Login</button></div>
+      <div id="registerForm" hidden class="mt"><div class="field"><label data-i18n="form_name">Name</label><input id="regName" /></div><div class="field"><label data-i18n="form_email">Email</label><input id="regEmail" /></div><div class="field"><label data-i18n="form_password">Password</label><input id="regPassword" type="password" /></div><button class="btn mt" id="btnRegister" data-i18n="auth_register_btn">Register</button></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
