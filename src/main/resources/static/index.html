@@ -16,8 +16,30 @@
 
   <header class="topnav-wrap">
     <div class="topnav">
-      <div class="brand-inline">
-        <img src="logo.png" alt="SkillBridge AI" class="nav-logo" onerror="if(this.src.indexOf('logo.jpg')===-1){this.src='logo.jpg'}else{this.src='brand-mark.svg'}" />
+      <div class="brand-inline" aria-label="SkillBridge AI">
+        <a href="#" class="brand-lockup" data-go="dashboard">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="brandGlow" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3768ff"></stop>
+                <stop offset="55%" stop-color="#1a9fff"></stop>
+                <stop offset="100%" stop-color="#31d6ff"></stop>
+              </linearGradient>
+            </defs>
+            <path d="M8 48h41.5" fill="none" stroke="url(#brandGlow)" stroke-width="3" stroke-linecap="round"></path>
+            <path d="M12 45.5h8m6 0h8m6 0h8" fill="none" stroke="url(#brandGlow)" stroke-width="2.6" stroke-linecap="round" opacity="0.65"></path>
+            <path d="M11 42l16-9 9-12 17-6" fill="none" stroke="url(#brandGlow)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M47 10l6 5-8 3z" fill="url(#brandGlow)"></path>
+            <rect x="14" y="32" width="7" height="11" rx="2.2" fill="url(#brandGlow)" opacity="0.9"></rect>
+            <rect x="26" y="27" width="7" height="16" rx="2.2" fill="url(#brandGlow)" opacity="0.95"></rect>
+            <rect x="38" y="22" width="7" height="21" rx="2.2" fill="url(#brandGlow)"></rect>
+            <circle cx="10" cy="48" r="3.6" fill="none" stroke="url(#brandGlow)" stroke-width="2.2"></circle>
+          </svg>
+          <span class="brand-wordmark">
+            <span class="brand-wordmark-main">SkillBridge</span>
+            <span class="brand-wordmark-accent">AI</span>
+          </span>
+        </a>
       </div>
 
       <nav class="main-nav">
