@@ -509,6 +509,9 @@ async function api(method, url, body, isForm = false) {
 
 function renderProfile() {
   if (!store.user) {
+    $("btnOpenLogin").hidden = false;
+    $("btnOpenRegister").hidden = false;
+    $("btnLogout").hidden = true;
     $("userName").textContent = tr("msg_guest_user", "Guest");
     $("userMail").textContent = "-";
     $("avatar").textContent = "G";
@@ -518,6 +521,9 @@ function renderProfile() {
     return;
   }
 
+  $("btnOpenLogin").hidden = true;
+  $("btnOpenRegister").hidden = true;
+  $("btnLogout").hidden = false;
   $("userName").textContent = store.user.name;
   $("userMail").textContent = store.user.email;
   $("avatar").textContent = (store.user.name || "U")[0].toUpperCase();
@@ -535,6 +541,22 @@ function openAuthModal(message = "") {
 
 function closeAuthModal() {
   $("authModal").style.display = "none";
+}
+
+function openLoginModal() {
+  $("tabLogin").classList.add("active");
+  $("tabRegister").classList.remove("active");
+  $("loginForm").hidden = false;
+  $("registerForm").hidden = true;
+  openAuthModal();
+}
+
+function openRegisterModal() {
+  $("tabRegister").classList.add("active");
+  $("tabLogin").classList.remove("active");
+  $("loginForm").hidden = true;
+  $("registerForm").hidden = false;
+  openAuthModal();
 }
 
 async function runPendingAction() {
@@ -924,6 +946,15 @@ function initEvents() {
       toast(tr("resume_btn_demo", "Fill demo"));
     }, "resumeBuilder");
   });
+
+  $("btnOpenLogin").addEventListener("click", () => {
+    openLoginModal();
+  });
+
+  $("btnOpenRegister").addEventListener("click", () => {
+    openRegisterModal();
+  });
+
   $("btnLogout").addEventListener("click", logout);
 
   $("themeToggle").addEventListener("click", () => {
