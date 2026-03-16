@@ -1113,6 +1113,9 @@ body {
   width: 100%;
   max-width: 920px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -1130,6 +1133,7 @@ body {
 }
 
 .hero-tag {
+  align-self: center;
   color: #dff6ff;
   border-color: rgba(108, 198, 255, 0.4);
   background: rgba(11, 32, 64, 0.72);
