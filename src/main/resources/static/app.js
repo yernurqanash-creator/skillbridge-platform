@@ -141,6 +141,8 @@ const dict = {
     msg_roadmap_ready: "Roadmap дайын",
     msg_pdf_error: "PDF жасау қатесі",
     msg_pdf_downloaded: "PDF жүктелді",
+    msg_auth_required: "Бұл мүмкіндікті пайдалану үшін тіркеліңіз немесе кіріңіз.",
+    msg_guest_user: "Қонақ",
     track_label: "Бағыт",
     month_1: "1-ай",
     month_2: "2-ай",
@@ -268,6 +270,8 @@ const dict = {
     msg_roadmap_ready: "Roadmap готов",
     msg_pdf_error: "Ошибка PDF",
     msg_pdf_downloaded: "PDF скачан",
+    msg_auth_required: "Пожалуйста, зарегистрируйтесь или войдите, чтобы использовать эту функцию.",
+    msg_guest_user: "Гость",
     track_label: "Трек",
     month_1: "Месяц 1",
     month_2: "Месяц 2",
@@ -395,6 +399,8 @@ const dict = {
     msg_roadmap_ready: "Roadmap ready",
     msg_pdf_error: "PDF error",
     msg_pdf_downloaded: "PDF downloaded",
+    msg_auth_required: "Please sign up or log in to use this feature.",
+    msg_guest_user: "Guest",
     track_label: "Track",
     month_1: "Month 1",
     month_2: "Month 2",
@@ -407,7 +413,9 @@ const store = {
   cv: null,
   bestMatch: 0,
   theme: localStorage.getItem("sb_theme") || "light",
-  lang: localStorage.getItem("sb_lang") || "kk"
+  lang: localStorage.getItem("sb_lang") || "kk",
+  pendingAction: null,
+  pendingPage: null
 };
 
 function tr(key, fallback = "") {
@@ -500,13 +508,64 @@ async function api(method, url, body, isForm = false) {
 }
 
 function renderProfile() {
-  if (!store.user) return;
+  if (!store.user) {
+    $("userName").textContent = tr("msg_guest_user", "Guest");
+    $("userMail").textContent = "-";
+    $("avatar").textContent = "G";
+    $("dashUserId").textContent = "-";
+    $("upUserId").value = "";
+    $("rUserId").value = "";
+    return;
+  }
+
   $("userName").textContent = store.user.name;
   $("userMail").textContent = store.user.email;
   $("avatar").textContent = (store.user.name || "U")[0].toUpperCase();
   $("dashUserId").textContent = store.user.id;
   $("upUserId").value = store.user.id;
   $("rUserId").value = store.user.id;
+}
+
+function openAuthModal(message = "") {
+  $("authModal").style.display = "grid";
+  if (message) {
+    toast(message);
+  }
+}
+
+function closeAuthModal() {
+  $("authModal").style.display = "none";
+}
+
+async function runPendingAction() {
+  if (!store.pendingAction) {
+    return;
+  }
+
+  const action = store.pendingAction;
+  const page = store.pendingPage;
+  store.pendingAction = null;
+  store.pendingPage = null;
+
+  if (page) {
+    showPage(page);
+  }
+
+  await action();
+}
+
+async function guardAction(action, page) {
+  if (store.user) {
+    if (page) {
+      showPage(page);
+    }
+    await action();
+    return;
+  }
+
+  store.pendingAction = action;
+  store.pendingPage = page || document.querySelector(".nav-item.active")?.dataset.page || "dashboard";
+  openAuthModal(tr("msg_auth_required", "Please sign up or log in to use this feature."));
 }
 
 function renderSkills(target, skillsList) {
@@ -559,9 +618,10 @@ async function register() {
   const data = await api("POST", "/api/auth/register", payload);
   store.user = data;
   localStorage.setItem("sb_user_id", String(data.id));
-  $("authModal").style.display = "none";
+  closeAuthModal();
   renderProfile();
   toast(tr("msg_register_done", "Register done"));
+  await runPendingAction();
 }
 
 async function login() {
@@ -573,9 +633,10 @@ async function login() {
   const data = await api("POST", "/api/auth/login", payload);
   store.user = data;
   localStorage.setItem("sb_user_id", String(data.id));
-  $("authModal").style.display = "none";
+  closeAuthModal();
   renderProfile();
   toast(tr("msg_login_done", "Login done"));
+  await runPendingAction();
 }
 
 async function loadProfileFromStorage() {
@@ -585,11 +646,12 @@ async function loadProfileFromStorage() {
   try {
     const data = await api("GET", `/api/auth/profile?userId=${userId}`);
     store.user = data;
-    $("authModal").style.display = "none";
+    closeAuthModal();
     renderProfile();
   } catch {
     localStorage.removeItem("sb_user_id");
-    $("authModal").style.display = "grid";
+    store.user = null;
+    renderProfile();
   }
 }
 
@@ -761,14 +823,16 @@ function logout() {
   store.user = null;
   store.cv = null;
   localStorage.removeItem("sb_user_id");
-  $("authModal").style.display = "grid";
-  $("userName").textContent = "User";
-  $("userMail").textContent = "-";
-  $("avatar").textContent = "U";
+  store.pendingAction = null;
+  store.pendingPage = null;
+  closeAuthModal();
+  renderProfile();
 }
 
 function initEvents() {
   document.addEventListener("click", async (e) => {
+    const protectedPages = new Set(["resumeBuilder", "uploadCv", "recommend", "career"]);
+
     const nav = e.target.closest(".nav-item");
     if (nav) {
       showPage(nav.dataset.page);
@@ -778,14 +842,21 @@ function initEvents() {
 
     const go = e.target.closest("[data-go]");
     if (go) {
-      showPage(go.dataset.go);
-      if (go.dataset.go === "news") await loadNews();
-      if (go.dataset.go === "resources") await loadResources();
+      if (protectedPages.has(go.dataset.go)) {
+        await guardAction(async () => {}, go.dataset.go);
+      } else {
+        showPage(go.dataset.go);
+        if (go.dataset.go === "news") await loadNews();
+        if (go.dataset.go === "resources") await loadResources();
+      }
     }
 
     const runBtn = e.target.closest("[data-action='run-match']");
     if (runBtn) {
-      await runMatch(runBtn.dataset.cvid, runBtn.dataset.internshipid);
+      await guardAction(
+        async () => runMatch(runBtn.dataset.cvid, runBtn.dataset.internshipid),
+        "recommend"
+      );
     }
   });
 
@@ -821,7 +892,7 @@ function initEvents() {
 
   $("btnUploadCv").addEventListener("click", async () => {
     try {
-      await uploadCv();
+      await guardAction(uploadCv, "uploadCv");
     } catch (e) {
       toast(e.message);
     }
@@ -829,7 +900,7 @@ function initEvents() {
 
   $("btnRecommend").addEventListener("click", async () => {
     try {
-      await runRecommendations();
+      await guardAction(runRecommendations, "recommend");
     } catch (e) {
       toast(e.message);
     }
@@ -837,14 +908,22 @@ function initEvents() {
 
   $("btnRoadmap").addEventListener("click", async () => {
     try {
-      await generateRoadmap();
+      await guardAction(generateRoadmap, "career");
     } catch (e) {
       toast(e.message);
     }
   });
 
-  $("btnGeneratePdf").addEventListener("click", generatePdf);
-  $("btnFillDemo").addEventListener("click", fillDemoResume);
+  $("btnGeneratePdf").addEventListener("click", async () => {
+    await guardAction(generatePdf, "resumeBuilder");
+  });
+
+  $("btnFillDemo").addEventListener("click", async () => {
+    await guardAction(async () => {
+      fillDemoResume();
+      toast(tr("resume_btn_demo", "Fill demo"));
+    }, "resumeBuilder");
+  });
   $("btnLogout").addEventListener("click", logout);
 
   $("themeToggle").addEventListener("click", () => {
@@ -865,6 +944,7 @@ async function init() {
   applyTheme(store.theme);
   $("langSelect").value = store.lang;
   applyLang(store.lang);
+  renderProfile();
   initEvents();
   showPage("dashboard");
 
@@ -873,10 +953,6 @@ async function init() {
     await Promise.all([loadNews(), loadResources()]);
   } catch (e) {
     toast(e.message);
-  }
-
-  if (!store.user) {
-    $("authModal").style.display = "grid";
   }
 
   setStatus("ready");
