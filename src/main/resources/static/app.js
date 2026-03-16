@@ -452,7 +452,7 @@ function setStatus(token) {
 }
 
 function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
+  document.documentElement.classList.toggle("dark", theme === "dark");
   $("themeToggle").textContent = theme === "dark" ? "☀️" : "🌙";
 }
 

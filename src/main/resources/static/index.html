@@ -1,9 +1,14 @@
 ﻿<!doctype html>
-<html lang="kk" data-theme="dark">
+<html lang="kk">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>SkillBridge</title>
+  <script>
+    if (localStorage.getItem("sb_theme") !== "light") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -61,6 +66,7 @@
         <section class="hero">
           <div class="hero-grid"></div>
           <div class="hero-particles"></div>
+          <div class="hero-horizon"></div>
           <div class="hero-beam hero-beam-a"></div>
           <div class="hero-beam hero-beam-b"></div>
           <div class="hero-network">
