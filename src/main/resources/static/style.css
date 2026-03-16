@@ -1402,7 +1402,130 @@ html:not(.dark) .partner-block,
 html:not(.dark) .about-strip,
 html:not(.dark) .rec-card,
 html:not(.dark) .news-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(241, 247, 255, 0.96));
+  border-color: rgba(147, 180, 227, 0.34);
   box-shadow: 0 16px 34px rgba(35, 88, 158, 0.08);
+}
+
+html:not(.dark) .pipeline {
+  background:
+    radial-gradient(460px 180px at 50% -20%, rgba(92, 168, 255, 0.2), transparent 70%),
+    linear-gradient(135deg, rgba(241, 247, 255, 0.96), rgba(231, 241, 255, 0.98));
+  border-color: rgba(122, 164, 224, 0.34);
+}
+
+html:not(.dark) .pipe-line {
+  background: rgba(65, 130, 236, 0.12);
+}
+
+html:not(.dark) .pipe-step {
+  background: rgba(255, 255, 255, 0.9);
+  color: #163357;
+  border-color: rgba(135, 177, 236, 0.34);
+}
+
+html:not(.dark) .feature-card,
+html:not(.dark) .feature-card:nth-child(1),
+html:not(.dark) .feature-card:nth-child(2),
+html:not(.dark) .feature-card:nth-child(3),
+html:not(.dark) .feature-card:nth-child(4) {
+  color: #10203b;
+  background:
+    radial-gradient(260px 160px at 100% 0%, rgba(108, 191, 255, 0.18), transparent 72%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(238, 245, 255, 0.98));
+}
+
+html:not(.dark) .feature-card::after {
+  background: rgba(107, 184, 255, 0.12);
+}
+
+html:not(.dark) .feature-card h3,
+html:not(.dark) .feature-card p,
+html:not(.dark) .feature-card .muted,
+html:not(.dark) .panel h3,
+html:not(.dark) .section-head h3,
+html:not(.dark) .section-head p,
+html:not(.dark) .about-strip h3,
+html:not(.dark) .about-strip p,
+html:not(.dark) .author-card h4,
+html:not(.dark) .author-card p,
+html:not(.dark) .contact-strip strong,
+html:not(.dark) .contact-strip p,
+html:not(.dark) .news-card h3,
+html:not(.dark) .news-card p,
+html:not(.dark) .news-card a,
+html:not(.dark) .rec-title,
+html:not(.dark) .rec-sub {
+  color: #173357;
+}
+
+html:not(.dark) label,
+html:not(.dark) .eyebrow,
+html:not(.dark) .status,
+html:not(.dark) .user-mail,
+html:not(.dark) .muted {
+  color: #587195;
+}
+
+html:not(.dark) .partner-block,
+html:not(.dark) .about-strip {
+  background:
+    radial-gradient(320px 180px at 100% 0%, rgba(104, 178, 255, 0.12), transparent 72%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(240, 246, 255, 0.98));
+}
+
+html:not(.dark) .contact-strip {
+  background:
+    linear-gradient(135deg, rgba(241, 247, 255, 0.96), rgba(228, 239, 255, 0.96));
+  border-color: rgba(139, 177, 230, 0.36);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+html:not(.dark) .author-card,
+html:not(.dark) .kv,
+html:not(.dark) .tag,
+html:not(.dark) .seg,
+html:not(.dark) .status,
+html:not(.dark) .user-pill {
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(147, 180, 227, 0.34);
+}
+
+html:not(.dark) .partner-item,
+html:not(.dark) input,
+html:not(.dark) select {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(147, 180, 227, 0.34);
+  color: #13284b;
+}
+
+html:not(.dark) .news-card,
+html:not(.dark) .rec-card {
+  background:
+    radial-gradient(220px 120px at 100% 0%, rgba(118, 196, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 247, 255, 0.98));
+}
+
+html:not(.dark) .rec-score {
+  background: rgba(230, 239, 255, 0.88);
+  border-color: rgba(139, 177, 230, 0.4);
+  color: #173357;
+}
+
+html:not(.dark) .seg-btn {
+  color: #587195;
+}
+
+html:not(.dark) .seg-btn.active {
+  background: rgba(219, 231, 255, 0.9);
+  color: #133155;
+}
+
+html:not(.dark) .btn.ghost,
+html:not(.dark) .tg-link {
+  background: rgba(255, 255, 255, 0.88);
+  color: #173357;
+  border-color: rgba(139, 177, 230, 0.42);
 }
 
 html:not(.dark) .partner-marquee {
