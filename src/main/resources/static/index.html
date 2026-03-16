@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html lang="kk" data-theme="light">
+<html lang="kk" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -18,13 +18,10 @@
       <nav class="main-nav">
         <button class="nav-item active" data-page="dashboard" data-i18n="nav_dashboard">Dashboard</button>
         <button class="nav-item" data-page="resumeBuilder" data-i18n="nav_resume">Resume Builder</button>
-        <button class="nav-item" data-page="uploadCv" data-i18n="nav_upload">Upload CV</button>
         <button class="nav-item" data-page="recommend" data-i18n="nav_match">Internship Match</button>
         <button class="nav-item" data-page="career" data-i18n="nav_career">Roadmap</button>
         <button class="nav-item" data-page="news" data-i18n="nav_news">News</button>
-        <button class="nav-item" data-page="resources" data-i18n="nav_resources">Extra section</button>
         <button class="nav-item" data-page="about" data-i18n="nav_about">About us</button>
-        <button class="nav-item" data-page="settings" data-i18n="nav_settings">Settings</button>
       </nav>
 
       <div class="nav-actions">
@@ -34,8 +31,8 @@
           <option value="en">English</option>
         </select>
         <button id="themeToggle" class="chip" type="button">🌙</button>
-        <button class="btn ghost" id="btnOpenLogin" data-i18n="auth_login_btn">Login</button>
-        <button class="btn" id="btnOpenRegister" data-i18n="auth_register_btn">Register</button>
+        <button class="btn ghost" id="btnOpenLogin" data-i18n="nav_sign_in">Sign In</button>
+        <button class="btn" id="btnOpenRegister" data-i18n="nav_request_demo">Request Demo</button>
         <button class="btn ghost" id="btnLogout" data-i18n="logout">Logout</button>
       </div>
     </div>
@@ -62,27 +59,48 @@
     <section class="pages">
       <div class="page show" id="page-dashboard">
         <section class="hero">
+          <div class="hero-grid"></div>
+          <div class="hero-particles"></div>
+          <div class="hero-beam hero-beam-a"></div>
+          <div class="hero-beam hero-beam-b"></div>
+          <div class="hero-network">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
           <div class="hero-orb"></div>
-          <div class="hero-left">
+          <div class="hero-left hero-content">
             <p class="hero-tag" data-i18n="hero_tag">AI-native internship career OS</p>
-            <h2 data-i18n="hero">Жеке кабинет</h2>
-            <p class="hero-sub" data-i18n="hero_desc">Тіркелу, CV жүктеу, стажировка пайызы және roadmap.</p>
-            <div class="hero-chips">
-              <span class="hero-chip" data-i18n="hero_chip_1">Build standout CV</span>
-              <span class="hero-chip" data-i18n="hero_chip_2">Get AI match score</span>
-              <span class="hero-chip" data-i18n="hero_chip_3">Land top internship</span>
+            <h2 data-i18n="hero">The AI-Powered Platform for Internship Success</h2>
+            <p class="hero-sub" data-i18n="hero_desc">Build your resume, analyze skills with AI, and land internships faster.</p>
+            <div class="hero-chips hero-chips-center">
+              <span class="hero-chip" data-i18n="hero_chip_1">Resume intelligence</span>
+              <span class="hero-chip" data-i18n="hero_chip_2">AI skill analysis</span>
+              <span class="hero-chip" data-i18n="hero_chip_3">Internship acceleration</span>
             </div>
-            <div class="row mt">
-              <button class="btn" data-go="uploadCv" data-i18n="cta_upload_resume">Upload Resume</button>
-              <button class="btn ghost" data-go="recommend" data-i18n="cta_run_match">Run AI Match</button>
-              <button class="btn ghost" data-go="career" data-i18n="cta_build_roadmap">Build Roadmap</button>
-              <a class="btn ghost telegram-bot-btn" href="https://t.me/skillbridgeebot" target="_blank" data-i18n="cta_bot">Telegram Bot @skillbridgeebot</a>
+            <div class="row mt hero-actions">
+              <button class="btn hero-primary-btn" data-go="resumeBuilder" data-i18n="hero_cta_primary">Start Building Your Career</button>
+            </div>
+            <div class="hero-stats">
+              <article class="hero-stat-card">
+                <strong>20%</strong>
+                <span data-i18n="stat_1_label">Increase in internship readiness</span>
+              </article>
+              <article class="hero-stat-card">
+                <strong>3-5x</strong>
+                <span data-i18n="stat_2_label">Faster skill analysis</span>
+              </article>
+              <article class="hero-stat-card">
+                <strong>4 Weeks</strong>
+                <span data-i18n="stat_3_label">Average internship preparation time</span>
+              </article>
             </div>
           </div>
-          <div class="hero-right">
-            <article class="kpi-box"><span data-i18n="kpi_user_id">User ID</span><strong id="dashUserId">-</strong></article>
-            <article class="kpi-box"><span data-i18n="kpi_cv_id">CV ID</span><strong id="dashCvId">-</strong></article>
-            <article class="kpi-box"><span data-i18n="kpi_best_match">Best Match</span><strong id="dashBest">-%</strong></article>
+          <div class="hero-sr-only" aria-hidden="true">
+            <span id="dashUserId">-</span>
+            <span id="dashCvId">-</span>
+            <span id="dashBest">-%</span>
           </div>
         </section>
 
