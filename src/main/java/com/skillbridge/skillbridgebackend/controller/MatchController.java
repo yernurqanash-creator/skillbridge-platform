@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillbridge.skillbridgebackend.dto.MatchResultDTO;
 import com.skillbridge.skillbridgebackend.service.MatchingService;
 
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("/api/match")
-@RequiredArgsConstructor
 public class MatchController {
 
     private final MatchingService matchingService;
+
+    public MatchController(MatchingService matchingService) {
+        this.matchingService = matchingService;
+    }
 
     @PostMapping("/run")
     public MatchResultDTO match(

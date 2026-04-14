@@ -11,15 +11,17 @@ import com.skillbridge.skillbridgebackend.dto.ResourceItemDTO;
 import com.skillbridge.skillbridgebackend.service.NewsService;
 import com.skillbridge.skillbridgebackend.service.ResourceService;
 
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("/api/content")
-@RequiredArgsConstructor
 public class ContentController {
 
     private final NewsService newsService;
     private final ResourceService resourceService;
+
+    public ContentController(NewsService newsService, ResourceService resourceService) {
+        this.newsService = newsService;
+        this.resourceService = resourceService;
+    }
 
     @GetMapping("/news")
     public List<NewsItemDTO> news() {

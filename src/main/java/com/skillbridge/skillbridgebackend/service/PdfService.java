@@ -1,4 +1,4 @@
-﻿package com.skillbridge.skillbridgebackend.service;
+package com.skillbridge.skillbridgebackend.service;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;

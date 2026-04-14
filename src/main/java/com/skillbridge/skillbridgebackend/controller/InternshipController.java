@@ -13,14 +13,15 @@ import com.skillbridge.skillbridgebackend.entity.Internship;
 import com.skillbridge.skillbridgebackend.repository.InternshipRepository;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("/api/internships")
-@RequiredArgsConstructor
 public class InternshipController {
 
     private final InternshipRepository internshipRepository;
+
+    public InternshipController(InternshipRepository internshipRepository) {
+        this.internshipRepository = internshipRepository;
+    }
 
     @GetMapping
     public List<Internship> list() {

@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillbridge.skillbridgebackend.dto.ResumeDTO;
 import com.skillbridge.skillbridgebackend.service.PdfService;
 
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("/api/resume")
-@RequiredArgsConstructor
 public class ResumeController {
 
     private final PdfService pdfService;
+
+    public ResumeController(PdfService pdfService) {
+        this.pdfService = pdfService;
+    }
 
     @PostMapping("/generate")
     public ResponseEntity<byte[]> generate(@RequestBody ResumeDTO dto) throws Exception {

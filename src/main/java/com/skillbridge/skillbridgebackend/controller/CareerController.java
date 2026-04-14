@@ -10,14 +10,15 @@ import com.skillbridge.skillbridgebackend.dto.RoadmapResponse;
 import com.skillbridge.skillbridgebackend.service.CareerService;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("/api/career")
-@RequiredArgsConstructor
 public class CareerController {
 
     private final CareerService careerService;
+
+    public CareerController(CareerService careerService) {
+        this.careerService = careerService;
+    }
 
     @PostMapping("/roadmap")
     public RoadmapResponse roadmap(@Valid @RequestBody RoadmapRequest request) {
